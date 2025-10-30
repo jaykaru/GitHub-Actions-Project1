@@ -20,19 +20,26 @@ jobs:
       with:
         terraform_version: 1.6.0
 
-    # ✅ Download state file from previous apply run
-    - name: Download Terraform State
-      uses: actions/download-artifact@v4
+    # ✅ Restore cached state file
+    - name: Restore Terraform State Cache
+      uses: actions/cache@v4
       with:
-        name: terraform-state
-        path: .
+        path: terraform.tfstate
+        key: terraform-state-${{ github.ref }}
+
+    # ✅ Download state file from previous apply run
+    # - name: Download Terraform State
+    #   uses: actions/download-artifact@v4
+    #   with:
+    #     name: terraform-state
+    #     path: .
 
     - name: Terraform Init
       run: terraform init
 
     # ✅ Optional: Refresh state before destroy
-    - name: Refresh State
-      run: terraform apply -refresh-only
+    # - name: Refresh State
+    #   run: terraform apply -refresh-only
 
     - name: Terraform Destroy
       run: terraform destroy -auto-approve
