@@ -26,6 +26,7 @@ jobs:
       with:
         path: terraform.tfstate
         key: terraform-state-${{ github.ref }}
+        restore-keys: terraform-state-
 
     # ✅ Download state file from previous apply run
     # - name: Download Terraform State
