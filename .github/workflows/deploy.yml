@@ -39,7 +39,8 @@ jobs:
 
     - name: Terraform Apply
       run: terraform apply -auto-approve
-   
+
+    # ✅ Upload state file as artifact
     - name: Upload Terraform State
       uses: actions/upload-artifact@v4
       with:
