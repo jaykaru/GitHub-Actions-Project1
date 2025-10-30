@@ -1,7 +1,7 @@
 name: Terraform Destroy AWS Resources
 
 on:
-  workflow_dispatch:  # Manual trigger for safety
+  workflow_dispatch:  # Manual trigger only for safety
 
 jobs:
   terraform-destroy:
@@ -19,15 +19,20 @@ jobs:
       uses: hashicorp/setup-terraform@v2
       with:
         terraform_version: 1.6.0
-    
+
+    # ✅ Download state file from previous apply run
     - name: Download Terraform State
       uses: actions/download-artifact@v4
       with:
         name: terraform-state
         path: .
-     
+
     - name: Terraform Init
       run: terraform init
+
+    # ✅ Optional: Refresh state before destroy
+    - name: Refresh State
+      run: terraform apply -refresh-only
 
     - name: Terraform Destroy
       run: terraform destroy -auto-approve
