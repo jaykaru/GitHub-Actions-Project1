@@ -20,3 +20,12 @@ resource "aws_subnet" "sub1" {
     Name = "sub1-10.0.1.0/24-eu-west-2a"
   }
 }
+
+# Create an Internet Gateway
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.myvpc.id
+
+  tags = {
+    Name = "main-igw"
+  }
+}
