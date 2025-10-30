@@ -19,7 +19,13 @@ jobs:
       uses: hashicorp/setup-terraform@v2
       with:
         terraform_version: 1.6.0
-
+    
+    - name: Download Terraform State
+      uses: actions/download-artifact@v3
+      with:
+        name: terraform-state
+        path: .
+     
     - name: Terraform Init
       run: terraform init
 
