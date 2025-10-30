@@ -8,4 +8,4 @@
 
 # Terraform lock file (optional for modules)
 # Uncomment the line below if you're building reusable modules
-.terraform.lock.hcl
+# .terraform.lock.hcl
