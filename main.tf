@@ -49,3 +49,38 @@ resource "aws_route_table_association" "sub1_assoc" {
   subnet_id      = aws_subnet.sub1.id
   route_table_id = aws_route_table.public_rt.id
 }
+
+# Create a Security Group
+resource "aws_security_group" "websg" {
+  name        = "websg"
+  description = "Allow HTTP, HTTPS, and SSH"
+  vpc_id      = aws_vpc.myvpc.id
+
+  ingress {
+    description = "Allow HTTP"
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    description = "Allow SSH"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    description = "Allow all outbound traffic"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "websg"
+  }
+}
