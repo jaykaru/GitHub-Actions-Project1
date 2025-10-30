@@ -1,1 +1,27 @@
+name: Terraform Destroy AWS Resources
 
+on:
+  workflow_dispatch:  # Manual trigger for safety
+
+jobs:
+  terraform-destroy:
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: 1.6.0
+
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Destroy
+      run: terraform destroy -auto-approve
