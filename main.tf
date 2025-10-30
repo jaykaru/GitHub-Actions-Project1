@@ -91,7 +91,7 @@ resource "aws_instance" "web_one" {
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.websg.id]
   subnet_id              = aws_subnet.sub1.id
-  
+
   # associate_public_ip_address = true
   #key_name               = "mykeypair"  # Ensure this key pair exists in the specified region
 
