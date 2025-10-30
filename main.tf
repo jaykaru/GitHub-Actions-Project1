@@ -84,3 +84,18 @@ resource "aws_security_group" "websg" {
     Name = "websg"
   }
 }
+
+# Create an EC2 Instance
+resource "aws_instance" "web_one" {
+  ami                    = var.ami
+  instance_type          = var.instance_type
+  vpc_security_group_ids = [aws_security_group.websg.id]
+  subnet_id              = aws_subnet.sub1.id
+  user_data_base64       = base64encode(file("userdataweb1.sh"))
+  # associate_public_ip_address = true
+  #key_name               = "mykeypair"  # Ensure this key pair exists in the specified region
+
+  tags = {
+    Name = "web-one-ec2"
+  }
+}
