@@ -39,8 +39,8 @@ jobs:
       run: terraform init
 
     # ✅ Optional: Refresh state before destroy  
-    - name: Refresh State
-      run: terraform apply -refresh-only -auto-approve
+    # - name: Refresh State
+    #   run: terraform apply -refresh-only -auto-approve
 
     - name: Terraform Destroy
       run: terraform destroy -auto-approve
